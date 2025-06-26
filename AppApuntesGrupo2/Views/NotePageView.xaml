@@ -3,23 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AppApuntesGrupo2.ViewModels"
              x:Class="AppApuntesGrupo2.Views.NotePageView"
-             Title="Nota">
+             Title="Notas">
 
     <ContentPage.BindingContext>
         <vm:NotePageViewModel />
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout Spacing="10" Margin="5">
-        <Editor Text="{Binding NoteText, Mode=TwoWay}"
-                Placeholder="Escribe tu nota"
-                HeightRequest="100" />
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Nueva Nota" FontSize="20" HorizontalOptions="Center" />
 
-        <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
-            <Button Text="Guardar"
-                    Command="{Binding SaveCommand}" />
-            <Button Grid.Column="1"
-                    Text="Eliminar"
-                    Command="{Binding DeleteCommand}" />
-        </Grid>
+        <Editor Placeholder="Escribe tu nota..."
+                Text="{Binding NuevaNota}" />
+
+        <Button Text="Agregar Nota"
+                Command="{Binding AgregarNotaCommand}" />
+
+        <Label Text="Notas guardadas" FontSize="18" Margin="0,20,0,0" />
+
+        <CollectionView ItemsSource="{Binding Notas}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="#52a6e8" CornerRadius="10" Padding="10" Margin="5">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Texto}" FontSize="16" />
+                            <Label Text="{Binding FechaCreacion, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}" FontSize="12" TextColor="Gray" />
+
+                            <Button Text="Eliminar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EliminarNotaCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Red"
+                                    TextColor="White"
+                                    Padding="4" FontSize="13"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
+

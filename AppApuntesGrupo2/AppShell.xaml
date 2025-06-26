@@ -9,8 +9,9 @@
     Title="AppApuntesGrupo2">
 
     <TabBar>
-        <ShellContent Title="Clima" Icon="sunny.png" ContentTemplate="{DataTemplate views:WeatherView}" />
-        <ShellContent Title="Notas" Icon="note.png" ContentTemplate="{DataTemplate views:NotePageView}" />
-        <ShellContent Title="Acerca de" Icon="info.png" ContentTemplate="{DataTemplate views:AboutPageView}" />
+        <ShellContent Title="Clima"  ContentTemplate="{DataTemplate views:WeatherView}" />
+        <ShellContent Title="Notas"  ContentTemplate="{DataTemplate views:NotePageView}" />
+        <ShellContent Title="Acerca de" ContentTemplate="{DataTemplate views:AboutPageView}" />
+        <ShellContent Title="Recordatorio"  ContentTemplate="{DataTemplate views:RecordatorioPageView}" />
     </TabBar>
 </Shell>

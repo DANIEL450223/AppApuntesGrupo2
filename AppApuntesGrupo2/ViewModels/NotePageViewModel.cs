@@ -1,68 +1,77 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using AppApuntesGrupo2.Models;
+using AppApuntesGrupo2.ViewModel;
+using System.Collections.ObjectModel;
+using System.Text.Json;
 using System.Windows.Input;
 
 namespace AppApuntesGrupo2.ViewModels
 {
-    public class NotePageViewModel : INotifyPropertyChanged
+    public class NotePageViewModel : BaseViewModel
     {
-        private string noteText;
-        private readonly string _fileName;
+        private string nuevaNota;
+        private const string FileName = "notas.json";
+        private string FilePath => Path.Combine(FileSystem.AppDataDirectory, FileName);
 
-        public string NoteText
+        public ObservableCollection<Nota> Notas { get; set; } = new();
+
+        public string NuevaNota
         {
-            get => noteText;
-            set
+            get => nuevaNota;
+            set => SetProperty(ref nuevaNota, value);
+        }
+
+        public ICommand AgregarNotaCommand { get; }
+        public ICommand EliminarNotaCommand { get; }
+
+        public NotePageViewModel()
+        {
+            AgregarNotaCommand = new Command(AgregarNota);
+            EliminarNotaCommand = new Command<Nota>(EliminarNota);
+            CargarNotas();
+        }
+
+        private void AgregarNota()
+        {
+            if (string.IsNullOrWhiteSpace(NuevaNota))
+                return;
+
+            var nota = new Nota
             {
-                if (noteText != value)
+                Texto = NuevaNota,
+                FechaCreacion = DateTime.Now
+            };
+            Notas.Add(nota);
+            GuardarNotas();
+            NuevaNota = string.Empty;
+        }
+
+        private void EliminarNota(Nota nota)
+        {
+            if (Notas.Contains(nota))
+            {
+                Notas.Remove(nota);
+                GuardarNotas();
+            }
+        }
+
+        private async void CargarNotas()
+        {
+            if (File.Exists(FilePath))
+            {
+                string json = await File.ReadAllTextAsync(FilePath);
+                var lista = JsonSerializer.Deserialize<List<Nota>>(json);
+                if (lista != null)
                 {
-                    noteText = value;
-                    OnPropertyChanged();
+                    foreach (var n in lista)
+                        Notas.Add(n);
                 }
             }
         }
 
-        public ICommand SaveCommand { get; }
-        public ICommand DeleteCommand { get; }
-
-        public NotePageViewModel()
+        private async void GuardarNotas()
         {
-            _fileName = Path.Combine(FileSystem.AppDataDirectory, "notes.txt");
-            LoadNote();
-
-            SaveCommand = new Command(SaveNote);
-            DeleteCommand = new Command(DeleteNote);
+            string json = JsonSerializer.Serialize(Notas.ToList());
+            await File.WriteAllTextAsync(FilePath, json);
         }
-
-        private void LoadNote()
-        {
-            if (File.Exists(_fileName))
-                NoteText = File.ReadAllText(_fileName);
-        }
-
-        private void SaveNote()
-        {
-            try
-            {
-                File.WriteAllText(_fileName, NoteText);
-            }
-            catch (Exception ex)
-            {
-                // Puedes mostrar un mensaje si gustas
-                Console.WriteLine($"Error guardando el archivo: {ex.Message}");
-            }
-        }
-
-        private void DeleteNote()
-        {
-            if (File.Exists(_fileName))
-                File.Delete(_fileName);
-
-            NoteText = string.Empty;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

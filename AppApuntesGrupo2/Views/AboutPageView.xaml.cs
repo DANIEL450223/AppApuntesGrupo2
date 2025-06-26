@@ -7,3 +7,4 @@ public partial class AboutPageView : ContentPage
         InitializeComponent();
     }
 }
+//Realizado Por : Emil Encalada, Roberto Ulloa, Ronny Quispe

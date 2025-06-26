@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppApuntesGrupo2.ViewModels;assembly=AppApuntesGrupo2"
+             x:Class="AppApuntesGrupo2.Views.AboutPageView"
+             Title="Acerca de">
+
+    <ContentPage.BindingContext>
+        <vm:AboutPageViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="15" HorizontalOptions="Center">
+        <Label Text="AppApuntesGrupo2" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center" />
+        <Label Text="Aplicación creada por Grupo 2" FontSize="18" HorizontalOptions="Center"/>
+        <Label Text="{Binding GroupInfo}" FontSize="16" HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>

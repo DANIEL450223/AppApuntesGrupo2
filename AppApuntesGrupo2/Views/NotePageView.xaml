@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppApuntesGrupo2.ViewModels"
+             x:Class="AppApuntesGrupo2.Views.NotePageView"
+             Title="Nota">
+
+    <ContentPage.BindingContext>
+        <vm:NotePageViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Spacing="10" Margin="5">
+        <Editor Text="{Binding NoteText, Mode=TwoWay}"
+                Placeholder="Escribe tu nota"
+                HeightRequest="100" />
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+            <Button Text="Guardar"
+                    Command="{Binding SaveCommand}" />
+            <Button Grid.Column="1"
+                    Text="Eliminar"
+                    Command="{Binding DeleteCommand}" />
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

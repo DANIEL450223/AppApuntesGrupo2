@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:AppApuntesGrupo2.ViewModels;assembly=AppApuntesGrupo2"
              x:Class="AppApuntesGrupo2.Views.AboutPageView"
-             Title="Acerca de">
+             Title="Acerca del Equipo">
 
-    <ContentPage.BindingContext>
-        <vm:AboutPageViewModel />
-    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-    <VerticalStackLayout Padding="20" Spacing="15" HorizontalOptions="Center">
-        <Label Text="AppApuntesGrupo2" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center" />
-        <Label Text="Aplicación creada por Grupo 2" FontSize="18" HorizontalOptions="Center"/>
-        <Label Text="{Binding GroupInfo}" FontSize="16" HorizontalOptions="Center"/>
-    </VerticalStackLayout>
+            <Label Text="Nuestro Equipo" FontSize="24" HorizontalOptions="Center" />
+
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+
+                <!-- Tarjeta de Ronny -->
+                <Frame BorderColor="Gray" CornerRadius="15" Padding="10" WidthRequest="150">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="ronny.jpg" HeightRequest="100" WidthRequest="100" Aspect="AspectFill" />
+                        <Label Text="Ronny Quispe" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                        <Label Text="Edad: 23 años" FontSize="12" HorizontalTextAlignment="Center"/>
+                        <Label Text="Fútbol" FontSize="12" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Tarjeta de Roberto -->
+                <Frame BorderColor="Gray" CornerRadius="15" Padding="10" WidthRequest="150">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="roberto.jpg" HeightRequest="100" WidthRequest="100" Aspect="AspectFill" />
+                        <Label Text="Roberto Ulloa" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                        <Label Text="Edad: 21 años" FontSize="12" HorizontalTextAlignment="Center"/>
+                        <Label Text="Boxeo" FontSize="12" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Tarjeta de Emil -->
+                <Frame BorderColor="Gray" CornerRadius="15" Padding="10" WidthRequest="150">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="emil.jpg" HeightRequest="100" WidthRequest="100" Aspect="AspectFill" />
+                        <Label Text="Emil Encalada" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                        <Label Text="Edad: 20 años" FontSize="12" HorizontalTextAlignment="Center"/>
+                        <Label Text="Fútbol" FontSize="12" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>
